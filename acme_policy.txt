@@ -1,0 +1,10 @@
+Acme Corp Employee Handbook
+
+1. Remote Work Policy:
+Employees are allowed to work remotely up to 3 days a week. Tuesdays and Thursdays are mandatory in-office days for team meetings. 
+
+2. IT Security:
+Do not write passwords on sticky notes. All laptops must be locked when stepping away from your desk. Use a VPN when connecting to public Wi-Fi.
+
+3. Expense Reports:
+Meals are covered up to $50 per day during business travel. Alcohol is not a reimbursable expense. Receipts must be submitted within 30 days via the Concur portal.
