@@ -1,5 +1,5 @@
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
-from langchain_core.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate, load_prompt
 from dotenv import load_dotenv
 import streamlit as st
 
@@ -7,22 +7,12 @@ load_dotenv()
 
 llm = HuggingFaceEndpoint(
     repo_id="meta-llama/Llama-3.2-1B-Instruct",
+    max_new_tokens=5000
 )
 
 model = ChatHuggingFace(llm=llm)
 
-template = PromptTemplate(
-    template="""
-        You are a travel guide.
-
-        Suggest a {trip_type} trip to {destination} for a duration of {days} days.
-        Include:
-        - Top attractions
-        - Recommended food
-        - Estimated budget
-        """,
-    input_variables=['trip_type', 'destination', 'days']
-)
+template = load_prompt("template.json")
 
 st.header("Trip Planner")
 
@@ -38,5 +28,6 @@ if st.button("Generate Itenary"):
     })
 
     result = model.invoke(prompt)
+    print(len(result.content))
 
     st.write(result.content)

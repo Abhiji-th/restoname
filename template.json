@@ -1,0 +1,17 @@
+{
+    "name": null,
+    "input_variables": [
+        "days",
+        "destination",
+        "trip_type"
+    ],
+    "optional_variables": [],
+    "output_parser": null,
+    "partial_variables": {},
+    "metadata": null,
+    "tags": null,
+    "template": "\n        You are a travel guide.\n\n        Suggest a {trip_type} trip to {destination} for a duration of {days} days.\n        Include:\n        - Top attractions\n        - Recommended food\n        - Estimated budget\n        ",
+    "template_format": "f-string",
+    "validate_template": false,
+    "_type": "prompt"
+}
