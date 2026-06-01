@@ -28,6 +28,5 @@ if st.button("Generate Itenary"):
     })
 
     result = model.invoke(prompt)
-    print(len(result.content))
 
     st.write(result.content)
