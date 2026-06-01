@@ -1,0 +1,2 @@
+HumanMessage(content='I want to request a refund for smartphone')
+AIMessage(content='Your refund will be processed in 2-3 days')
