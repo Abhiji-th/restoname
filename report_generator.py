@@ -23,14 +23,12 @@ template2 = PromptTemplate(
     input_variables=["text"]
 )
 
-prompt1 = template1.format(topic="black hole")
+parser = StrOutputParser()
 
-result = model.invoke(prompt1)
+chain = template1 | model | parser | template2 | model
 
-prompt2 = template2.format(text=result.content)
+result  = chain.invoke({"topic": "black hole"})
 
-final_result = model.invoke(prompt2)
-
-print(final_result.content)
+print(result.content)
 
 
