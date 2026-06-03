@@ -1,6 +1,6 @@
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from langchain_core.prompts import PromptTemplate
-from langchain_core.output_parsers import PydanticOutputParser
+from langchain_core.output_parsers import PydanticOutputParser, StrOutputParser
 from pydantic import BaseModel
 from typing import Literal
 from langchain_core.runnables import RunnableParallel, RunnableBranch, RunnableLambda
@@ -40,6 +40,16 @@ prompt3 = PromptTemplate(
 
 sentiment_chain = prompt1 | model | parser
 
-result = sentiment_chain.invoke({"feedback": "This is a terrible smartphone"})
+str_parser = StrOutputParser()
 
-print(result.sentiment)
+response_chain = RunnableBranch(
+    (lambda x: x.sentiment=="positive", prompt2 | model | str_parser),
+    (lambda x: x.sentiment=="negative", prompt3 | model | str_parser),
+    RunnableLambda(lambda x: "Sentiment not found")
+)
+
+chain = sentiment_chain | response_chain
+
+result = chain.invoke({"feedback": "This is a terrible smartphone"})
+
+print(result)
