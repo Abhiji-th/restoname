@@ -1,0 +1,34 @@
+from langchain_community.document_loaders import TextLoader
+from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+from langchain_core.runnables import RunnablePassthrough, RunnableParallel, RunnableLambda
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from dotenv import load_dotenv
+
+load_dotenv()
+
+llm = HuggingFaceEndpoint(
+    repo_id="Qwen/Qwen2.5-7B-Instruct",
+    task="text-generation",
+    max_new_tokens=800
+)
+
+model = ChatHuggingFace(llm=llm)
+
+loader = TextLoader("valorant.txt")
+
+parser = StrOutputParser()
+
+prompt = PromptTemplate(
+    template="Summarise the following text in 5 points. \n {text}",
+    input_variables=["text"]
+)
+
+docs = loader.load()
+
+chain = prompt | model | parser
+
+result = chain.invoke({"text": docs[0].page_content})
+
+print(result)
+
